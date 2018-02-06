@@ -76,6 +76,8 @@ opts.add_option("-a", help="<Read1> Accepts fastq or fastq.gz")
 
 opts.add_option("-b", help="<Read2> Accepts fastq or fastq.gz")
 
+opts.add_option("-f", help="<Folder> Output folder")
+
 options, arguments = opts.parse_args()
 
 
@@ -98,7 +100,9 @@ p1_in = options.a
 
 p2_in = options.b
 
+p3_in = options.f
 
+os.chdir(p3_in)
 
 # name outputs and print to working dir
 

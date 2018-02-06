@@ -47,13 +47,12 @@ mkdir $outputDIR
 
 ### FastQC Pipeline ###
 mkdir $outputDIR/fastQC
-
-find $dataDIR -name *.fastq.gz > $outputDIR/fastqc_filelist.txt
+find $dataDIR -name *.fastq > $outputDIR/fastqc_filelist.txt
+find $dataDIR -name *.fastq.gz >> $outputDIR/fastqc_filelist.txt
 FILENUMBER=$(wc -l $outputDIR/fastqc_filelist.txt | cut -d' ' -f1)
+echo $FILENUMBER
 
-#echo $FILENUMBER
-
-echo \#!/bin/bash >> $outputDIR/fastqc.qsub
+echo \#!/bin/bash > $outputDIR/fastqc.qsub
 echo \#PBS -l nodes=1:ppn=2 >> $outputDIR/fastqc.qsub
 echo \#PBS -l walltime=24:00:00 >> $outputDIR/fastqc.qsub
 echo \#PBS -N fastqc  >> $outputDIR/fastqc.qsub

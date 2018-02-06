@@ -33,8 +33,8 @@
 
 scriptDIR=$(pwd)
 workingDIR=$scriptDIR/working
-inputDIR=$workingDIR/trimmomatic/bwa
-outputDIR=$workingDIR/trimmomatic/bwa
+inputDIR=$workingDIR/trimmomatic/adapterTrimmed/bwa
+outputDIR=$workingDIR/trimmomatic/adapterTrimmed/bwa
 #
 # now bamtobed
 #
@@ -53,6 +53,7 @@ echo module load python >> $workingDIR/postPostBWA.qsub
 echo module load R >> $workingDIR/postPostBWA.qsub
 echo module load perl/5.10.1 >> $workingDIR/postPostBWA.qsub
 echo module load samtools/0.1.19 >> $workingDIR/postPostBWA.qsub
+echo module load gcc/7.1.0 >> $workingDIR/postPostBWA.qsub
 echo module load bedtools >> $workingDIR/postPostBWA.qsub
 echo FILE=\$\(head -n \$PBS_ARRAYID $workingDIR/shiftedbamfilelist.txt \| tail -1\) >> $workingDIR/postPostBWA.qsub
 echo FILENAME=\$\(basename \"\${FILE}\" \| sed \'s/\.bam/_sorted.bam/g\'\)  >> $workingDIR/postPostBWA.qsub

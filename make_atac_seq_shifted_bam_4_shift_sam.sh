@@ -62,8 +62,8 @@
 
 scriptDIR=$(pwd)
 workingDIR=$scriptDIR/working
-inputDIR=$workingDIR/trimmomatic/bwa
-outputDIR=$workingDIR/trimmomatic/bwa
+inputDIR=$workingDIR/trimmomatic/adapterTrimmed/bwa
+outputDIR=$workingDIR/trimmomatic/adapterTrimmed/bwa
 
 #find $workingDIR -name *R1_001.trim.fastq.gz > $workingDIR/filelist.txt
 rm $workingDIR/samfilelist.txt
