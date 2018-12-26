@@ -80,10 +80,12 @@ echo \#PBS -N shift_sam  >> $workingDIR/postBWA.qsub
 echo \#PBS -t 1-$FILENUMBER >> $workingDIR/postBWA.qsub
 echo module load python >> $workingDIR/postBWA.qsub
 echo module load R >> $workingDIR/postBWA.qsub
-echo module load perl/5.10.1 >> $workingDIR/postBWA.qsub
-echo module load samtools/0.1.19 >> $workingDIR/postBWA.qsub
+echo module load perl/5.26.0 >> $workingDIR/postBWA.qsub
+echo module load samtools/1.8 >> $workingDIR/postBWA.qsub
 echo module load bedtools >> $workingDIR/postBWA.qsub
 echo FILESAM=\$\(head -n \$PBS_ARRAYID $workingDIR/samfilelist.txt \| tail -1\) >> $workingDIR/postBWA.qsub
+
+
 echo FILESORTED=\$\(basename "\${FILESAM}" \| sed \'s/\.sam/_sorted\.sam/g\'\) >> $workingDIR/postBWA.qsub
 echo java -Xms1g -Xmx4g -jar /opt/compsci/picard/1.95/SortSam.jar INPUT=\$FILESAM OUTPUT=$outputDIR/\$FILESORTED SO=coordinate >>  $workingDIR/postBWA.qsub
 echo FILERMDUP=\$\(basename \"\${FILESORTED}\" \| sed \'s/\.sam/_rmdup\.sam/g\'\) >> $workingDIR/postBWA.qsub
@@ -94,6 +96,11 @@ echo FILEHISTO=\$\(basename \"\${FILERMDUP}\" \| sed \'s/\.sam/_insertSize\.pdf/
 echo java -Xms1g -Xmx4g -jar /opt/compsci/picard/1.95/CollectInsertSizeMetrics.jar METRIC_ACCUMULATION_LEVEL=ALL_READS OUTPUT=$outputDIR/\$FILEINSERT HISTOGRAM_FILE=$outputDIR/\$FILEHISTO INPUT=$outputDIR/\$FILERMDUP >> $workingDIR/postBWA.qsub
 echo FILENAME=\$\(basename \"\${FILERMDUP}\" \| sed \'s/\.sam/_shifted/g\'\) >> $workingDIR/postBWA.qsub
 echo perl $scriptDIR/auyar/ATAC_BAM_shifter_gappedAlign.pl $outputDIR/\$FILERMDUP $outputDIR/\$FILENAME >> $workingDIR/postBWA.qsub
+
+#write sorted (unshifted) bam files.
+echo BAMSORTED=\$\(basename "\${FILERMDUP}" \| sed \'s/\.sam/.bam/g\'\) >> $workingDIR/postBWA.qsub
+echo samtools view -Sb -o $outputDIR/\$BAMSORTED $outputDIR/\$FILERMDUP >> $workingDIR/postBWA.qsub
+
 
 ######
 qsub -V $workingDIR/postBWA.qsub

@@ -130,7 +130,7 @@ if append == "fastq":
 
     p2_out = re.sub(".fastq", ".trim.fastq", p2_file)
 
-if append == "fastq_filtered":
+elif append == "fastq_filtered":
 
     p1_rds = open(p1_in,'r')
 
@@ -161,7 +161,6 @@ elif append == "gz":
     p2_out = re.sub(".fastq.gz", ".trim.fastq", p2_file)
 
 else:
-
     sys.exit("ERROR! The input file2 must be a .fastq or .fastq.gz")
 
 

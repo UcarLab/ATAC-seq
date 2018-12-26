@@ -34,6 +34,8 @@ mkdir $trimmomaticDIR/bwa
 
 rm $workingDIR/filelist.txt
 ls -1 $trimmomaticDIR/*R1_001.trim.trim.fastq > $workingDIR/filelist.txt
+ls -1 $trimmomaticDIR/*R1_001.trim.trim.fastq.gz >> $workingDIR/filelist.txt
+
 FILENUMBER=$(wc -l $workingDIR/filelist.txt | cut -d' ' -f1)
 
 echo $FILENUMBER
