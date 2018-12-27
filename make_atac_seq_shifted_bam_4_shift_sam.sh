@@ -74,7 +74,7 @@ FILENUMBER=$(wc -l $workingDIR/samfilelist.txt | cut -d' ' -f1)
 rm $workingDIR/postBWA.qsub
 
 echo \#!/bin/bash >> $workingDIR/postBWA.qsub
-echo \#PBS -l nodes=1:ppn=16 >> $workingDIR/postBWA.qsub
+echo \#PBS -l nodes=1:ppn=1 >> $workingDIR/postBWA.qsub
 echo \#PBS -l walltime=12:00:00 >> $workingDIR/postBWA.qsub
 echo \#PBS -N shift_sam  >> $workingDIR/postBWA.qsub
 echo \#PBS -t 1-$FILENUMBER >> $workingDIR/postBWA.qsub
